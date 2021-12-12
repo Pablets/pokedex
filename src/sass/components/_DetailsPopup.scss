@@ -1,0 +1,12 @@
+.popup {
+  width: 100vw;
+  height: 100vh;
+  background-color: $base-color;
+  position: fixed;
+  z-index: 1700;
+  top: 0;
+  left: 0;
+  background-color: tomato !important;
+  position: fixed;
+  z-index: 1000;
+}

@@ -1,0 +1,6 @@
+.container {
+  display: flex;
+  background-color: $base-color;
+  justify-content: space-around;
+  flex-flow: wrap;
+}

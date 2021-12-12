@@ -1,0 +1,33 @@
+.main {
+  &-title {
+    width: 100%;
+    text-align: center;
+    color: rgb(209, 209, 209);
+  }
+}
+
+.button {
+  background-color: rgba($color: #000000, $alpha: 0.3);
+	border-radius: 50%;
+  fill: white;
+  border: none;
+  padding: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &-prev {
+    transform: rotate(180deg);
+    position: absolute;
+    left: 0;
+    top: 50%;
+    z-index: 500;
+  }
+
+  &-next {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    z-index: 500;
+  }
+}
