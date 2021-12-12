@@ -9,6 +9,11 @@ $transition-time: 1s;
   flex-wrap: wrap;
   margin: 10px 0px;
   background-color: $ligther-base-color;
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0.4990371148459384) 0%,
+    rgba(0, 0, 0, 1) 100%
+  );
   border-radius: 5px;
   overflow: hidden;
   -webkit-box-shadow: $shadow-color;
@@ -106,6 +111,13 @@ $transition-time: 1s;
         right: 0;
         border-radius: 2px;
         color: white;
+        transform: translateX(150px);
+        transition: all 0.5s;
+      }
+
+      &-button.button-hovered {
+        transform: translateX(0px);
+        transition: all 0.5s;
       }
     }
   }

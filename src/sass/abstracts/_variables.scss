@@ -7,3 +7,8 @@ $tablet: 800px;
 $desktop: 1200px;
 $widescreen: 1400px;
 $shadow-color: -5px 5px 15px 5px rgba(0, 0, 0, 0.5);
+$gradient: linear-gradient(
+  90deg,
+  rgba(0, 0, 0, 0.4990371148459384) 0%,
+  rgba(0, 0, 0, 1) 100%
+); ;

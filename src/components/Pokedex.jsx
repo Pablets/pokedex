@@ -4,12 +4,15 @@ import Button from './Button';
 import Cards from './Cards';
 import GridLoader from './GridLoader';
 
+export const LanguageContext = React.createContext();
+
 const pokeApiURL = 'https://pokeapi.co/api/v2/pokemon/';
 
 const Pokedex = () => {
   const [query, setQuery] = React.useState('');
   const [pagination, setPagination] = React.useState(0);
   const [result, status] = useAsyncHook(query);
+  const [language, setLanguage] = React.useState('es');
 
   const handlePagination = (direction) => {
     if (direction === 'next') {
@@ -19,6 +22,27 @@ const Pokedex = () => {
     }
   };
 
+  const changeLanguage = () => {
+    if (language === 'es') {
+      setLanguage('en');
+    } else {
+      setLanguage('es');
+    }
+  };
+
+  const UI_TEXT = {
+    en: {
+      mainTitle: 'Pokedex Challenge!',
+      languageButton: 'change language',
+      paginationText: 'Page:',
+    },
+    es: {
+      mainTitle: 'Desafío Pokedex!',
+      languageButton: 'cambiar idioma',
+      paginationText: 'Página:',
+    },
+  };
+
   React.useEffect(() => {
     setQuery({
       type: 'all',
@@ -26,7 +50,6 @@ const Pokedex = () => {
       limit: 5,
       offset: 5 * pagination,
     });
-
   }, [pagination, result]);
 
   if (status === 'loading') return <GridLoader />;
@@ -34,17 +57,24 @@ const Pokedex = () => {
   if (status === 'loaded')
     return (
       <>
-        <h1 className="main-title">Pokedex Challenge!</h1>
-        <div className="container">
-          {pagination > 0 && (
-            <Button handlePagination={handlePagination} direction="prev" />
-          )}
-          <Button handlePagination={handlePagination} direction="next" />
-          {result.results.map((results, index) => (
-            <Cards data={results} key={index} />
-          ))}
-        </div>
-        <p>Página {pagination + 1}</p>
+        <LanguageContext.Provider value={language}>
+          <h1 className="main-title">{UI_TEXT[language].mainTitle}</h1>
+          <button onClick={() => changeLanguage()}>
+            {UI_TEXT[language].languageButton}
+          </button>
+          <div className="container">
+            {pagination > 0 && (
+              <Button handlePagination={handlePagination} direction="prev" />
+            )}
+            <Button handlePagination={handlePagination} direction="next" />
+            {result.results.map((results, index) => (
+              <Cards data={results} key={index} />
+            ))}
+          </div>
+          <p>
+            {UI_TEXT[language].paginationText} {pagination + 1}
+          </p>
+        </LanguageContext.Provider>
       </>
     );
   return null;

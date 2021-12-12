@@ -1,12 +1,68 @@
+$img-height: 90vh;
+
 .popup {
-  width: 100vw;
+  width: calc(100vw - 15px);
   height: 100vh;
   background-color: $base-color;
   position: fixed;
-  z-index: 1700;
   top: 0;
   left: 0;
-  background-color: tomato !important;
   position: fixed;
   z-index: 1000;
+  background-color: transparent;
+
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &.gradient-background {
+    background: linear-gradient(
+      270deg,
+      #1f005c,
+      #48005f,
+      #680060,
+      #830060,
+      #9c155f,
+      #b22c5e,
+      #c5415d,
+      #d5585c,
+      #e36e5c,
+      #ef865e,
+      #f89d63,
+      #ffb56b
+    );
+  }
+
+  &-loader-container {
+    opacity: 0;
+    transition: all 2s;
+    position: fixed;
+    background-color: black;
+
+    &.fade-in {
+      opacity: 1;
+      transition: all 2s;
+    }
+
+    &.fade-out {
+      opacity: 0;
+      transition: all 2s;
+    }
+  }
+
+  &-container {
+    border: 1px solid green;
+
+    .img {
+      max-width: 80vw;
+      width: $img-height;
+      height: auto;
+    }
+  }
+
+  &-description {
+    max-height: $img-height;
+    border: 1px solid red;
+  }
 }
