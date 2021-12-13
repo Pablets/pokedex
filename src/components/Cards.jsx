@@ -35,7 +35,8 @@ const Cards = ({ data }) => {
     };
   }, [data.url, result?.sprites?.other, status]);
 
-  const showMoreCallback = () => {
+  const showMoreCallback = (e) => {
+    e.preventDefault();
     setShowMore(!showMore);
   };
 

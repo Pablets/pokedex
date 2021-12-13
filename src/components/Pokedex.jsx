@@ -14,6 +14,29 @@ const Pokedex = () => {
   const [result, status] = useAsyncHook(query);
   const [language, setLanguage] = React.useState('es');
 
+  const [touchStart, setTouchStart] = React.useState(0);
+  const [touchEnd, setTouchEnd] = React.useState(0);
+
+  function handleTouchStart(e) {
+    setTouchStart(e.targetTouches[0].clientX);
+  }
+
+  function handleTouchMove(e) {
+    setTouchEnd(e.targetTouches[0].clientX);
+  }
+
+  function handleTouchEnd() {
+    if (touchStart - touchEnd > 150) {
+      // do your stuff here for left swipe
+      setPagination((prev) => prev + 1);
+    }
+
+    if (touchStart - touchEnd < -150) {
+      // do your stuff here for right swipe
+      setPagination((prev) => prev - 1);
+    }
+  }
+
   const handlePagination = (direction) => {
     if (direction === 'next') {
       setPagination((prev) => prev + 1);
@@ -66,11 +89,16 @@ const Pokedex = () => {
               <button className="main-button" onClick={() => changeLanguage()}>
                 {UI_TEXT[language].languageButton}
               </button>
-							<p>
+              <p>
                 {UI_TEXT[language].paginationText} {pagination + 1}
               </p>
             </header>
-            <main className="container">
+            <main
+              className="container"
+              onTouchStart={handleTouchStart}
+              onTouchMove={handleTouchMove}
+              onTouchEnd={handleTouchEnd}
+            >
               {pagination > 0 && (
                 <Button handlePagination={handlePagination} direction="prev" />
               )}

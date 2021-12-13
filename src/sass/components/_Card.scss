@@ -42,6 +42,12 @@ $transition-time: 1s;
     opacity: 0;
   }
 
+  @include mobile-only {
+    .overlay {
+      opacity: 0;
+    }
+  }
+
   .card {
     width: $card-width;
     position: relative;
@@ -65,7 +71,7 @@ $transition-time: 1s;
     }
 
     .card-img.img-hovered {
-      transform: scale(1.03);
+      transform: scale(1.1);
       // transform: translateX(-10px);
     }
 
