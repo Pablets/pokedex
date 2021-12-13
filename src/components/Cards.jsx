@@ -48,30 +48,26 @@ const Cards = ({ data }) => {
         onClick={() => setShowMore(!showMore)}
       >
         <div className="card">
-          {status !== 'loaded' ? (
-            <GridLoader />
-          ) : (
-            <>
-              <div
-                className={`overlay ${hover ? 'overlay-hovered' : null}`}
-              ></div>
-              <img
-                className={`card-img ${hover ? 'img-hovered' : null}`}
-                src={mainImgURL}
-                alt={data.name}
-              />
-              <div className="card-description">
-                <h1 className="card-description-title">{data.name}</h1>
-                <button
-                  className={`card-description-button ${
-                    hover ? 'button-hovered' : null
-                  }`}
-                >
-                  {UI_TEXT[value].aditionalInfoButton}
-                </button>
-              </div>
-            </>
-          )}
+          <>
+            <div
+              className={`overlay ${hover ? 'overlay-hovered' : null}`}
+            ></div>
+            <img
+              className={`card-img ${hover ? 'img-hovered' : null}`}
+              src={mainImgURL}
+              alt={data.name}
+            />
+            <div className="card-description">
+              <h1 className="card-description-title">{data.name}</h1>
+              <button
+                className={`card-description-button ${
+                  hover ? 'button-hovered' : null
+                }`}
+              >
+                {UI_TEXT[value].aditionalInfoButton}
+              </button>
+            </div>
+          </>
         </div>
       </div>
       {showMore && (

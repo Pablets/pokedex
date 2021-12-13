@@ -1,6 +1,16 @@
 .container {
   display: flex;
   background-color: $base-color;
-  justify-content: space-around;
+  justify-content: center;
   flex-flow: wrap;
+  max-width: 90vw;
+  margin: auto;
+  position: relative;
+
+  &.row {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid $ligther-base-color;
+  }
 }

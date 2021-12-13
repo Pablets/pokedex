@@ -1,15 +1,21 @@
 .main {
   &-title {
-    width: 100%;
     text-align: center;
     color: rgb(209, 209, 209);
+  }
+
+  &-button {
+    padding: 10px;
+    border: none;
+    background-color: $ligther-base-color;
+    height: fit-content;
+    width: fit-content;
   }
 }
 
 .button {
   background-color: rgba($color: #000000, $alpha: 0.3);
-	border-radius: 50%;
-  fill: white;
+  border-radius: 50%;
   border: none;
   padding: 15px;
   display: flex;
@@ -30,4 +36,9 @@
     top: 50%;
     z-index: 500;
   }
+}
+
+.flag {
+  max-width: 50px;
+  height: 200px;
 }

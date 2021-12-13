@@ -43,40 +43,42 @@ const DetailsPopup = ({ data, showMoreCallback, mainImgURL }) => {
   };
 
   return (
-    <div
-      className={`popup ${
-        smothLoaderStatus !== 'fade-in' && 'gradient-background'
-      }`}
-    >
+    <div className="popup">
       {smothLoaderStatus && smothLoaderStatus !== 'ended' && (
         <div className={`popup-loader-container ${smothLoaderStatus}`}>
           <GridLoader />
         </div>
       )}
-      {/* {smothLoaderStatus && smothLoaderStatus !== 'fade-in' && ( */}
-      <>
-        <div className="popup-container">
-          <img className="img" src={mainImgURL} alt="" />
+      <div className="main-container">
+        <div className="gradient-background">
+          <div className="popup-container popup-container-gradient">
+            <img className="img" src={mainImgURL} alt="pokemon img" />
+          </div>
         </div>
         <div className="popup-container">
           <div className="popup-description">
             <SpeciesDetail pokemonID={data.id} />
-            <h2>{UI_TEXT[value].title}</h2>
-            {data &&
-              data.abilities.map(({ ability }, index) => (
-                <div key={index}>
-                  <AbilityDetail ability={ability.url} liftState={liftState} />
-                </div>
-              ))}
-            <div>
-              <button onClick={showMoreCallback}>
-                {UI_TEXT[value].backButtonText}
-              </button>
+            <div className="popup-description-container-50">
+              <h3 className="popup-description-h3">{UI_TEXT[value].title}</h3>
+              <ul>
+                {data &&
+                  data.abilities.map(({ ability }, index) => (
+                    <AbilityDetail
+                      ability={ability.url}
+                      liftState={liftState}
+                      key={index}
+                    />
+                  ))}
+              </ul>
             </div>
           </div>
         </div>
-      </>
-      {/* )} */}
+      </div>
+      <div>
+        <button className="exit-button" onClick={showMoreCallback}>
+          {UI_TEXT[value].backButtonText}
+        </button>
+      </div>
     </div>
   );
 };

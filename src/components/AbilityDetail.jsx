@@ -37,11 +37,11 @@ const AbilityDetail = ({ ability, liftState }) => {
   return (
     status === 'loaded' &&
     dataToShow && (
-      <div>
-        <h3>
+      <li>
+        <p className="popup-description-paragraph">
           {dataToShow.name}: {dataToShow.description}
-        </h3>
-      </div>
+        </p>
+      </li>
     )
   );
 };

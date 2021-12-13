@@ -1,13 +1,7 @@
 import Pokedex from './components/Pokedex';
 
 function App() {
-  return (
-    <div>
-      <header>
-        <Pokedex />
-      </header>
-    </div>
-  );
+  return <Pokedex />;
 }
 
 export default App;

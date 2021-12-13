@@ -57,24 +57,30 @@ const Pokedex = () => {
   if (status === 'loaded')
     return (
       <>
-        <LanguageContext.Provider value={language}>
-          <h1 className="main-title">{UI_TEXT[language].mainTitle}</h1>
-          <button onClick={() => changeLanguage()}>
-            {UI_TEXT[language].languageButton}
-          </button>
-          <div className="container">
-            {pagination > 0 && (
-              <Button handlePagination={handlePagination} direction="prev" />
-            )}
-            <Button handlePagination={handlePagination} direction="next" />
-            {result.results.map((results, index) => (
-              <Cards data={results} key={index} />
-            ))}
-          </div>
-          <p>
-            {UI_TEXT[language].paginationText} {pagination + 1}
-          </p>
-        </LanguageContext.Provider>
+        {status === 'loading' ? (
+          <GridLoader />
+        ) : (
+          <LanguageContext.Provider value={language}>
+            <header className="container row">
+              <h1 className="main-title">{UI_TEXT[language].mainTitle}</h1>
+              <button className="main-button" onClick={() => changeLanguage()}>
+                {UI_TEXT[language].languageButton}
+              </button>
+							<p>
+                {UI_TEXT[language].paginationText} {pagination + 1}
+              </p>
+            </header>
+            <main className="container">
+              {pagination > 0 && (
+                <Button handlePagination={handlePagination} direction="prev" />
+              )}
+              <Button handlePagination={handlePagination} direction="next" />
+              {result.results.map((results, index) => (
+                <Cards data={results} key={index} />
+              ))}
+            </main>
+          </LanguageContext.Provider>
+        )}
       </>
     );
   return null;

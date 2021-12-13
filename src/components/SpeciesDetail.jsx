@@ -39,10 +39,11 @@ const SpeciesDetail = ({ pokemonID }) => {
       let [typeData] = result.genera.filter(
         (type) => type.language.name === value
       );
-
+      let pokemonName = result.name;
       setDataToShow({
         description: descData.flavor_text,
         pokemonType: typeData.genus,
+        pokemonName,
       });
     }
   }, [pokemonID, result, status, value]);
@@ -50,14 +51,19 @@ const SpeciesDetail = ({ pokemonID }) => {
   return (
     status === 'loaded' &&
     dataToShow && (
-      <div>
-        <h2>
-          {UI_TEXT[value].typeText} {dataToShow.pokemonType}
-        </h2>
-        <h2>
-          {UI_TEXT[value].descText} {dataToShow.description}
-        </h2>
-      </div>
+      <>
+        <div className="popup-description-container">
+          <h2 className="popup-description-subtitle">
+            {dataToShow.pokemonType}
+          </h2>
+          <h1 className="popup-description-title">{dataToShow.pokemonName}</h1>
+        </div>
+        <div className="popup-description-container-50">
+          <p className="popup-description-main-paragraph">
+            {dataToShow.description}
+          </p>
+        </div>
+      </>
     )
   );
 };
