@@ -181,11 +181,12 @@ $img-height: 40%;
 
 .exit-button {
   position: absolute;
-  top: 0;
-  right: 0;
+  top: 16px;
+  right: 16px;
   padding: 10px;
   background-color: $base-color;
   border: 0px;
+	color: white;
 
   &:hover {
     background-color: gray;
