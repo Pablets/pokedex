@@ -34,14 +34,12 @@ const Cards = ({ pokemonData }) => {
     setShowMore(!showMore);
   };
 
-  console.log('Card');
-
   return (
     <>
       {error && <div>Error</div>}
       <div
         role={'img'}
-        TestId="card"
+        data-testid={'card'}
         className="card-container"
         onMouseEnter={() => setHover(true)}
         onMouseLeave={() => setHover(false)}
