@@ -2,50 +2,45 @@ import React from 'react';
 
 const pokeApiURL = 'https://pokeapi.co/api/v2/pokemon/';
 
-const useAsyncHook = ({
-  userInput = 'all',
-  url = pokeApiURL,
-  limit = 5,
-  offset = 0,
-} = {}) => {
-  const [result, setResult] = React.useState([]);
-  const [status, setStatus] = React.useState('idle');
+const reducer = (state, { type, payload }) => {
+  if (type === 'loading') return { status: 'loading' };
+  if (type === 'finished') return { status: 'finished', data: payload };
+  if (type === 'error') return { status: 'error', error: payload };
+  return state;
+};
 
-  React.useEffect(() => {
-    async function fetchData(input, dataUrl, fetchLimit, fetchOffset) {
+const initState = {
+  status: 'idle',
+};
+
+const useAsyncHook = () => {
+  const [state, dispatch] = React.useReducer(reducer, initState);
+
+  const asyncDispatch = React.useCallback(
+    async ({ type = 'all', url = pokeApiURL, limit = 5, offset = 0 } = {}) => {
       try {
-        let json;
-        setStatus('loading');
+        dispatch({ type: 'loading' });
+
         let response;
-        if (input === 'all') {
-          response = await fetch(
-            `${dataUrl}?limit=${fetchLimit}&offset=${fetchOffset}`
-          );
-          json = await response.json();
-        } else if (input === 'card') {
-          response = await fetch(`${dataUrl}`);
-          json = await response.json();
-        } else if (input === 'card-details') {
-          response = await fetch(`${dataUrl}`);
-          json = await response.json();
-          // console.log('card-details', json);
-        } else {
-          response = await fetch(`${dataUrl}${input}`);
+        switch (type) {
+          case 'all':
+            response = await fetch(`${url}?limit=${limit}&offset=${offset}`);
+            break;
+          default:
+            response = await fetch(`${url}`);
+            break;
         }
 
-        setResult(json);
-        setStatus('loaded');
+        let json = await response.json();
+        dispatch({ type: 'finished', payload: json });
       } catch (error) {
-        setStatus('error');
+        dispatch({ type: 'error', payload: '**** ERROR ****' });
       }
-    }
+    },
+    []
+  );
 
-    if (userInput !== '') {
-      fetchData(userInput, url, limit, offset);
-    }
-  }, [userInput, url, limit, offset]);
-
-  return [result, status];
+  return { state, dispatch: asyncDispatch };
 };
 
 export default useAsyncHook;

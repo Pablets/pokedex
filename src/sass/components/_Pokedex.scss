@@ -36,6 +36,23 @@
     top: 50%;
     z-index: 500;
   }
+
+  @include mobile-only {
+    &-next {
+      position: fixed;
+      top: unset;
+      right: 10px;
+      bottom: 10px;
+      background-color: rgba(255, 255, 255, 0.426);
+    }
+    &-prev {
+      position: fixed;
+      top: unset;
+      left: 10px;
+      bottom: 10px;
+      background-color: rgba(255, 255, 255, 0.426);
+    }
+  }
 }
 
 .flag {

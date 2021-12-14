@@ -1,8 +1,14 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
 import App from './App';
+import Enzyme, { shallow } from 'enzyme';
+import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
+import Pokedex from './components/Pokedex/Pokedex';
 
-it('renders welcome message', () => {
-  render(<App />);
-  expect(screen.getByText('Algo')).toBeInTheDocument();
+Enzyme.configure({ adapter: new Adapter() });
+
+describe('Parent Component', () => {
+  it('renders Child component', () => {
+    const wrapper = shallow(<App />);
+    expect(wrapper.containsMatchingElement(<Pokedex />)).toEqual(true);
+  });
 });

@@ -1,8 +1,8 @@
 import React from 'react';
-import AbilityDetail from './AbilityDetail';
-import GridLoader from './GridLoader';
-import { LanguageContext } from './Pokedex';
-import SpeciesDetail from './SpeciesDetail';
+import AbilityDetail from '../AbilityDetail/AbilityDetail';
+import GridLoader from '../GridLoader';
+import { LanguageContext } from '../Pokedex/Pokedex';
+import SpeciesDetail from '../SpeciesDetail/SpeciesDetail';
 
 // * Ability detail:  https://pokeapi.co/api/v2/ability/{ability-id}/
 // * Species detail: https://pokeapi.co/api/v2/pokemon-species/{pokemon-id}
@@ -27,16 +27,13 @@ const DetailsPopup = ({ data, showMoreCallback, mainImgURL }) => {
     if (smothLoaderStatus === null) {
       setsSmothLoaderStatus('fade-in');
     } else if (smothLoaderStatus === 'fade-out') {
-      console.log('fading out');
       setTimeout(() => {
         setsSmothLoaderStatus('ended');
-        console.log('ended');
       }, 500);
     }
   }, [smothLoaderStatus]);
 
   const liftState = () => {
-    console.log('lifting state up');
     setTimeout(() => {
       setsSmothLoaderStatus('fade-out');
     }, 1000);
@@ -50,8 +47,8 @@ const DetailsPopup = ({ data, showMoreCallback, mainImgURL }) => {
         </div>
       )}
       <div className="main-container">
-        <div className="gradient-background">
-          <div className="popup-container popup-container-gradient">
+        <div className="popup-container gradient-background">
+          <div className=" popup-container-gradient">
             <img className="img" src={mainImgURL} alt="pokemon img" />
           </div>
         </div>

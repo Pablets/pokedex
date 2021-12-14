@@ -1,10 +1,9 @@
 import React from 'react';
-import useAsyncHook from '../hooks/useAsyncHook';
-import DetailsPopup from './DetailsPopup';
-import GridLoader from './GridLoader';
-import { LanguageContext } from './Pokedex';
+import useAsyncHook from '../../hooks/useAsyncHook';
+import DetailsPopup from '../DetailsPopup/DetailsPopup';
+import { LanguageContext } from '../Pokedex/Pokedex';
 
-const Cards = ({ data }) => {
+const Cards = ({ pokemonData }) => {
   const value = React.useContext(LanguageContext);
   const UI_TEXT = {
     en: {
@@ -18,31 +17,31 @@ const Cards = ({ data }) => {
   const [showMore, setShowMore] = React.useState(false);
   const [hover, setHover] = React.useState(false);
 
-  const [query, setQuery] = React.useState({
-    type: 'card',
-    url: '',
-  });
-  const [result, status] = useAsyncHook({ type: query.type, url: query.url });
-  const [mainImgURL, setMainImgURL] = React.useState('');
+  const { state, dispatch } = useAsyncHook();
+
+  const { status, data, error } = state;
+
+  const handleDispatch = React.useCallback(() => {
+    dispatch({ type: 'card', url: pokemonData.url });
+  }, [dispatch, pokemonData.url]);
 
   React.useEffect(() => {
-    setQuery({ type: 'card', url: data.url });
-    if (status === 'loaded') {
-      setMainImgURL(result?.sprites?.other['official-artwork'].front_default);
-    }
-    return () => {
-      setQuery({ type: '', url: '' });
-    };
-  }, [data.url, result?.sprites?.other, status]);
+    handleDispatch();
+  }, [handleDispatch]);
 
   const showMoreCallback = (e) => {
     e.preventDefault();
     setShowMore(!showMore);
   };
 
+  console.log('Card');
+
   return (
     <>
+      {error && <div>Error</div>}
       <div
+        role={'img'}
+        TestId="card"
         className="card-container"
         onMouseEnter={() => setHover(true)}
         onMouseLeave={() => setHover(false)}
@@ -53,17 +52,20 @@ const Cards = ({ data }) => {
             <div
               className={`overlay ${hover ? 'overlay-hovered' : null}`}
             ></div>
-            <img
-              className={`card-img ${hover ? 'img-hovered' : null}`}
-              src={mainImgURL}
-              alt={data.name}
-            />
+            {status === 'finished' && (
+              <img
+                className={`card-img ${hover ? 'img-hovered' : null}`}
+                src={data?.sprites?.other['official-artwork'].front_default}
+                alt={pokemonData.name}
+              />
+            )}
             <div className="card-description">
-              <h1 className="card-description-title">{data.name}</h1>
+              <h1 className="card-description-title">{pokemonData.name}</h1>
               <button
                 className={`card-description-button ${
                   hover ? 'button-hovered' : null
                 }`}
+                tabIndex={-1}
               >
                 {UI_TEXT[value].aditionalInfoButton}
               </button>
@@ -71,12 +73,12 @@ const Cards = ({ data }) => {
           </>
         </div>
       </div>
-      {showMore && (
+      {showMore && status === 'finished' && (
         <DetailsPopup
           className="popup"
-          data={result}
+          data={data}
           showMoreCallback={showMoreCallback}
-          mainImgURL={mainImgURL}
+          mainImgURL={data?.sprites?.other['official-artwork'].front_default}
         />
       )}
     </>
