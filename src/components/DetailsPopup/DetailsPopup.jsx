@@ -47,7 +47,7 @@ const DetailsPopup = ({ data, showMoreCallback, mainImgURL }) => {
         </div>
       )}
       <div className="main-container">
-        <div className="popup-container gradient-background">
+        <div className="popup-container gradient-background smalContainer">
           <div className=" popup-container-gradient">
             <img className="img" src={mainImgURL} alt="pokemon img" />
           </div>
