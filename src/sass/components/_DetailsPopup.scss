@@ -75,7 +75,7 @@ $img-height: 40%;
     }
 
     .img {
-      max-width: 25vw;
+      max-width: 30vw;
       width: $img-height;
       height: auto;
     }
@@ -86,10 +86,10 @@ $img-height: 40%;
       max-height: 50%;
 
       .img {
-        max-width: 35vw;
+        max-width: 76vw;
       }
       &.smalContainer {
-        max-height: 50vmin;
+        max-height: 60vmin;
       }
     }
   }
